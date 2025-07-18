@@ -2,6 +2,12 @@ pipeline {
     agent any
 
     stages {
+        stage('Checkout') {
+            steps {
+                git url: 'https://github.com/janhzarmacias/Laboratorio-Pipelines-jenkins.git', branch: 'main'
+            }
+        }
+
         stage('Build Java (Maven)') {
             steps {
                 script {
