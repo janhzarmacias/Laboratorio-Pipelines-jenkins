@@ -4,8 +4,11 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/janhzarmacias/Laboratorio-Pipelines-jenkins.git', branch: 'main'
-            }
+    checkout([$class: 'GitSCM', 
+        branches: [[name: 'main']], 
+        userRemoteConfigs: [[url: 'https://github.com/janhzarmacias/Laboratorio-Pipelines-jenkins.git']]
+    ])
+}
         }
 
         stage('Build Java (Maven)') {
