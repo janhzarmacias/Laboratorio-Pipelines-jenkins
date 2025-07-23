@@ -36,11 +36,12 @@ pipeline {
             }
         }
 
-        stage('Build .NET Core') {
+         stage('Build .NET Core') {
             steps {
                 script {
-                    docker.image('mcr.microsoft.com/dotnet/sdk:8.0').inside {
+                    docker.image('mcr.microsoft.com/dotnet/sdk:8.0').inside('-e DOTNET_CLI_HOME=/tmp') {
                         dir('dotnet-app') {
+                            sh 'mkdir -p /tmp/.dotnet' // Asegurarse de que exista
                             sh 'dotnet restore'
                             sh 'dotnet build --configuration Release'
                             sh 'dotnet test || echo "No hay pruebas definidas"'
